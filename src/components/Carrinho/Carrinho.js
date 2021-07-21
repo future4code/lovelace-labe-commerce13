@@ -6,7 +6,6 @@ class Carrinho extends React.Component{
     totalValue = () => {
         let valueFinish = 0
 
-
         return valueFinish
     }
 
