@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, {createGlobalStyle} from 'styled-components'
+import Filter from './components/Filter/Filter';
 
 const GlobalStyle  = createGlobalStyle`
   padding: 0;
@@ -20,9 +21,7 @@ function App() {
     
     <Container>
         
-        <div>
-          <h1>Luan</h1>
-          </div>
+       <Filter/> 
 
         <div>
           <h1>Eunice</h1>
