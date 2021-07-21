@@ -1,23 +1,15 @@
 import React from 'react'
 
-
 class Carrinho extends React.Component{
-
-    totalValue = () => {
-        let valueFinish = 0
-
-        return valueFinish
-    }
-
     render() {
-        return <div>
-                <h3>Carrinho</h3>
-                <div>
-                    
-                </div>
-                <p>Valor Total: {this.totalValue()},00</p>
+        return (
+        <div>
+            <div> 
+                <p>{this.props.quantidade}x</p>
+                <p>{this.props.nomeProduto}</p>
             </div>
-    
+        </div>
+        );
     }
 }
 

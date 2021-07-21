@@ -4,7 +4,6 @@ class Nav extends React.Component {
   render() {
     return (
       <nav>
-  
         <p>Quantidade de produtos: 2</p>
         <label>
           Ordenação:
