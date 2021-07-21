@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, {createGlobalStyle} from 'styled-components'
 import Carrinho from './components/Carrinho/Carrinho';
+import Filter from './components/Filter/Filter';
 
 const GlobalStyle  = createGlobalStyle`
   padding: 0;
@@ -18,18 +19,14 @@ const Container = styled.div`
 
 class App extends React.Component {
   
-
   render() {
     return (
       <Container>
 
+          <Filter/> 
 
-
-
-          
           <Carrinho
              
-
           />
 
           <div>
