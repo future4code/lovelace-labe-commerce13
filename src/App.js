@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, {createGlobalStyle} from 'styled-components'
+import Home from './components/Home/Home';
 
 const GlobalStyle  = createGlobalStyle`
   padding: 0;
@@ -24,9 +25,7 @@ function App() {
           <h1>Luan</h1>
           </div>
 
-        <div>
-          <h1>Eunice</h1>
-        </div>
+        <Home />
 
         <div>
           <h1>Thiago</h1>
