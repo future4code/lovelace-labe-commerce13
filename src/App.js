@@ -1,6 +1,9 @@
 import React from 'react';
 import styled, {createGlobalStyle} from 'styled-components'
+
 import Home from './components/Home/Home';
+import Carrinho from './components/Carrinho/Carrinho';
+import Filter from './components/Filter/Filter';
 
 const GlobalStyle  = createGlobalStyle`
   padding: 0;
@@ -16,25 +19,22 @@ const Container = styled.div`
   gap: 10px;
 `
 
-function App() {
-  return (
-    
-    <Container>
-        
-        <div>
-          <h1>Luan</h1>
-          </div>
+class App extends React.Component {
+  
 
-        <Home />
-
-        <div>
-          <h1>Thiago</h1>
-        </div>
-
+  render() {
+    return (
+      <Container>
         <GlobalStyle/>
-    </Container>
-    
-  );
+          <Filter/> 
+          
+          <Home />
+
+          <Carrinho/>
+        <GlobalStyle/>
+      </Container>
+    );
+  }
 }
 
 export default App;
