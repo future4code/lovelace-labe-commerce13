@@ -11,15 +11,14 @@ class Carrinho extends React.Component{
     }
 
     render() {
-        return (
-            <div>
+        return <div>
                 <h3>Carrinho</h3>
                 <div>
                     
                 </div>
                 <p>Valor Total: {this.totalValue()},00</p>
             </div>
-        );
+    
     }
 }
 

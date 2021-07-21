@@ -1,5 +1,7 @@
 import React from 'react';
 import styled, {createGlobalStyle} from 'styled-components'
+
+import Home from './components/Home/Home';
 import Carrinho from './components/Carrinho/Carrinho';
 import Filter from './components/Filter/Filter';
 
@@ -25,16 +27,13 @@ class App extends React.Component {
 
           <Filter/> 
 
-          <Carrinho
-             
-          />
+          <Carrinho/>
 
-          <div>
-            <h1>Thiago</h1>
-          </div>
-
-            <GlobalStyle/>
-          </Container>
+          <Home/>
+            
+          <Carrinho/>
+        <GlobalStyle/>
+      </Container>
     );
   }
 }
