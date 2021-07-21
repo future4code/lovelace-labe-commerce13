@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, {createGlobalStyle} from 'styled-components'
+import Carrinho from './components/Carrinho/Carrinho';
 
 const GlobalStyle  = createGlobalStyle`
   padding: 0;
@@ -15,27 +16,30 @@ const Container = styled.div`
   gap: 10px;
 `
 
-function App() {
-  return (
-    
-    <Container>
-        
-        <div>
-          <h1>Luan</h1>
+class App extends React.Component {
+  
+
+  render() {
+    return (
+      <Container>
+
+
+
+
+          
+          <Carrinho
+             
+
+          />
+
+          <div>
+            <h1>Thiago</h1>
           </div>
 
-        <div>
-          <h1>Eunice</h1>
-        </div>
-
-        <div>
-          <h1>Thiago</h1>
-        </div>
-
-        <GlobalStyle/>
-    </Container>
-    
-  );
+            <GlobalStyle/>
+          </Container>
+    );
+  }
 }
 
 export default App;
