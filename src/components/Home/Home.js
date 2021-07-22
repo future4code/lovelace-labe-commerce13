@@ -1,72 +1,89 @@
 import React from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import Nav from './Nav/Nav';
+// import Products from './Products/Products';
 
-import Home from './components/Home/Home';
-import Carrinho from './components/Carrinho/Carrinho';
-import Filter from './components/Filter/Filter';
-
-const GlobalStyle = createGlobalStyle`
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-
-`;
-
-const Container = styled.div`
-  text-align: center;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-`;
-
-class App extends React.Component {
+class Home extends React.Component {
   state = {
-    carrinho: [],
+    produtos: [
+      {
+        id: 1,
+        name: 'Voyager',
+        price: 150.0,
+        imgURL: 'https://picsum.photos/200/200',
+        quantidade: 1,
+      },
+      {
+        id: 2,
+        name: 'Discovery',
+        price: 100.0,
+        imgURL: 'https://picsum.photos/200/200',
+        quantidade: 1,
+      },
+      {
+        id: 3,
+        name: 'Ola mundo',
+        price: 200.0,
+        imgURL: 'https://picsum.photos/200/200',
+        quantidade: 1,
+      },
+    ],
   };
 
-  addToCart(obj) {
-    const carrinhoCopia = this.state.carrinho;
-    this.setState({
-      carrinho: [...carrinhoCopia, obj],
-    });
-  }
-
-  addQuantidade = (idObj) => {
-    const carrinhoCopia = [...this.state.carrinho];
-    const newCart = carrinhoCopia
-      .map((produtoCarrinho) => {
-        const { id } = produtoCarrinho;
-        if (id === idObj) {
-          const obj = {
-            ...produtoCarrinho,
-            quantidade: produtoCarrinho.quantidade + 1,
-          };
-          return obj;
-        } else return produtoCarrinho;
-      })
-      .filter((item) => item.quantidade > 1);
-    this.setState({ carrinho: newCart });
+  addCartObject = (id, name, price, quantidade) => {
+    console.log(quantidade);
+    return {
+      id,
+      name,
+      price,
+      quantidade,
+    };
   };
 
   render() {
-    console.log(this.state.carrinho);
     return (
-      <Container>
-        <Filter />
-
-        <Home
-          executar={this.addToCart.bind(this)}
-          executar2={this.addQuantidade.bind(this)}
-          produtos={this.state.produtos}
-          carrinho={this.state.carrinho}
-        />
-
-        <Carrinho />
-
-        <GlobalStyle />
-      </Container>
+      <section>
+        <Nav produtos={this.state.produtos} />
+        <main>
+          {this.state.produtos.map(
+            ({ id, imgURL, name, price, quantidade }, index) => (
+              <div key={index}>
+                <figure>
+                  <img src={imgURL} alt={name} />
+                </figure>
+                <div>
+                  <p>{name}</p>
+                  <p>R${price}</p>
+                </div>
+                <button
+                  onClick={() => {
+                    this.props.executar(
+                      this.addCartObject(id, name, price, quantidade)
+                    );
+                    const carrinhoCopia = [...this.props.carrinho];
+                    const oi = carrinhoCopia.reduce((acc, item) => {
+                      console.log(acc);
+                      if (acc.toLowerCase() === item.name.toLowerCase()) {
+                        this.props.executar2(id);
+                        return item.name;
+                      } else {
+                        this.props.executar(
+                          this.addCartObject(id, name, price, quantidade)
+                        );
+                        return item.name;
+                      }
+                    }, '');
+                  }}
+                  type="button"
+                >
+                  Adcionar ao carrinho
+                </button>
+              </div>
+            )
+          )}
+        </main>
+      </section>
     );
   }
 }
 
-export default App;
+export default Home;
