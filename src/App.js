@@ -21,30 +21,6 @@ const Container = styled.div`
 
 class App extends React.Component {
   state = {
-    produtos: [
-      {
-        id: 1,
-        name: 'Voyager',
-        price: 150.0,
-        imgURL: 'https://picsum.photos/200/200',
-        quantidade: 1,
-      },
-      {
-        id: 2,
-        name: 'Discovery',
-        price: 100.0,
-        imgURL: 'https://picsum.photos/200/200',
-        quantidade: 1,
-      },
-      {
-        id: 3,
-        name: 'Ola mundo',
-        price: 200.0,
-        imgURL: 'https://picsum.photos/200/200',
-        quantidade: 1,
-      },
-    ],
-
     carrinho: [],
   };
 
@@ -53,17 +29,36 @@ class App extends React.Component {
     this.setState({
       carrinho: [...carrinhoCopia, obj],
     });
-    console.log(this.state.carrinho);
   }
 
+  addQuantidade = (idObj) => {
+    const carrinhoCopia = [...this.state.carrinho];
+    const newCart = carrinhoCopia
+      .map((produtoCarrinho) => {
+        const { id } = produtoCarrinho;
+        if (id === idObj) {
+          const obj = {
+            ...produtoCarrinho,
+            quantidade: produtoCarrinho.quantidade + 1,
+          };
+          return obj;
+        } else return produtoCarrinho;
+      })
+      .filter((item) => item.quantidade > 1);
+    this.setState({ carrinho: newCart });
+  };
+
   render() {
+    console.log(this.state.carrinho);
     return (
       <Container>
         <Filter />
 
         <Home
           executar={this.addToCart.bind(this)}
+          executar2={this.addQuantidade.bind(this)}
           produtos={this.state.produtos}
+          carrinho={this.state.carrinho}
         />
 
         <Carrinho />
