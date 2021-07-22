@@ -1,16 +1,13 @@
 import React from "react"
 
 class Filter extends React.Component{
-
-    render() {
+    render(){
         return(
             <section>
                 <h3>Filtros</h3>
                 <div>
                     <label>Valor mínimo:</label>
-                    <input 
-                        type="number"
-                    /> 
+                    <input type="number"/> 
                 </div>
                 <div>
                     <label>Valor máximo:</label>
@@ -18,11 +15,7 @@ class Filter extends React.Component{
                 </div>
                 <div>
                     <label>Busca por nome:</label>
-                    <input 
-                        type="text"
-                        value = {this.props.inputProcurar}
-                        onChange={this.props.eventProcurar}
-                    /> 
+                    <input type="text"/> 
                 </div>
             </section>
         );

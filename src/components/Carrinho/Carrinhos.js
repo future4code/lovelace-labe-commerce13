@@ -4,25 +4,25 @@ import Carrinho from './Carrinho';
 class Carrinhos extends React.Component {
 
     totalValue = () => {
-        let valueFinish = this.props.carrinho.reduce((acc, {preco}) => acc + preco , 0)
+        let valueFinish = this.props.carrinho.reduce((acc, { price, quantidade }) => acc + price * quantidade , 0)
         return valueFinish
-    }
-
-    removerItem = (itemId) => {
-        
     }
 
     render() {
         return (
         <div>
             <h3>Carrinho</h3>
-                {this.props.carrinho.map(({ nome, quantidade }) => (
+                {this.props.carrinho.map(({ id, name, quantidade }) => (
                 <>
                     <Carrinho 
                         quantidade={quantidade}
-                        nomeProduto={nome}
+                        nomeProduto={name}
                     />
-                    <button onClick={this.removerItem}>Remover</button>
+                    <label>Cupom:</label>
+                    <input 
+                        type="text"
+                    ></input>
+                    <button onClick={() => this.props.executar(id)}>Remover</button>
                 </>
             ))} 
             <p>Valor Total: R${this.totalValue()},00</p>
