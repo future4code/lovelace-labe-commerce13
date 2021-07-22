@@ -45,14 +45,34 @@ class App extends React.Component {
     this.setState({ carrinho: newCart })
   }
 
+  addQuantidade = (idObj) => {
+    const carrinhoCopia = [...this.state.carrinho];
+    const newCart = carrinhoCopia
+      .map((produtoCarrinho) => {
+        const { id } = produtoCarrinho;
+        if (id === idObj) {
+          const obj = {
+            ...produtoCarrinho,
+            quantidade: produtoCarrinho.quantidade + 1,
+          };
+          return obj;
+        } else return produtoCarrinho;
+      })
+      .filter((item) => item.quantidade > 1);
+    this.setState({ carrinho: newCart });
+  };
+
   render() {
+    console.log(this.state.carrinho);
     return (
       <Container>
         <Filter />
 
         <Home
           executar={this.addToCart.bind(this)}
+          executar2={this.addQuantidade.bind(this)}
           produtos={this.state.produtos}
+          carrinho={this.state.carrinho}
         />
 
         {this.state.carrinho.length !== 0 && <Carrinhos 
