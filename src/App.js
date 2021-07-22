@@ -2,14 +2,13 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import Home from './components/Home/Home';
-import Carrinho from './components/Carrinho/Carrinho';
+import Carrinhos from './components/Carrinho/Carrinhos';
 import Filter from './components/Filter/Filter';
 
 const GlobalStyle = createGlobalStyle`
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-
 `;
 
 const Container = styled.div`
@@ -20,40 +19,30 @@ const Container = styled.div`
 `;
 
 class App extends React.Component {
+  
   state = {
-    produtos: [
-      {
-        id: 1,
-        name: 'Voyager',
-        price: 150.0,
-        imgURL: 'https://picsum.photos/200/200',
-        quantidade: 1,
-      },
-      {
-        id: 2,
-        name: 'Discovery',
-        price: 100.0,
-        imgURL: 'https://picsum.photos/200/200',
-        quantidade: 1,
-      },
-      {
-        id: 3,
-        name: 'Ola mundo',
-        price: 200.0,
-        imgURL: 'https://picsum.photos/200/200',
-        quantidade: 1,
-      },
-    ],
-
     carrinho: [],
   };
 
   addToCart(obj) {
-    const carrinhoCopia = this.state.carrinho;
+    const carrinhoCopia = [...this.state.carrinho];
     this.setState({
-      carrinho: [...carrinhoCopia, obj],
-    });
-    console.log(this.state.carrinho);
+      carrinho: [...carrinhoCopia, obj]
+    });    
+  }
+
+  removerItem = (itemID) => {
+    const newCart = this.state.carrinho.map(( produto ) => {
+        const { id, quantidade } = produto
+        if (itemID === id){
+            return {
+              ...produto,
+              quantidade: quantidade -1
+            }
+        }
+        return produto
+    }).filter(({ quantidade }) => quantidade >= 1)
+    this.setState({ carrinho: newCart })
   }
 
   render() {
@@ -66,7 +55,10 @@ class App extends React.Component {
           produtos={this.state.produtos}
         />
 
-        <Carrinho />
+        {this.state.carrinho.length !== 0 && <Carrinhos 
+          carrinho = {this.state.carrinho}
+          executar = {this.removerItem.bind(this)}
+        />}
 
         <GlobalStyle />
       </Container>
