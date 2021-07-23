@@ -25,10 +25,7 @@ class Filter extends React.Component {
           <label>Busca por nome:</label>
           <input
             value={this.props.procurarNome}
-            onChange={(event) => {
-              this.props.filterProduto();
-              this.props.onChangeInput(event);
-            }}
+            onChange={this.props.onChangeInput}
             type="text"
           />
         </div>
