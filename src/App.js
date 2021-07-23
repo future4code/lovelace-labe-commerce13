@@ -19,9 +19,72 @@ const Container = styled.div`
 `;
 
 class App extends React.Component {
+  produtosArray = [
+    {
+      id: 1,
+      name: 'Voyager',
+      price: 150.0,
+      imgURL: 'https://picsum.photos/200/200',
+      quantidade: 1,
+    },
+    {
+      id: 2,
+      name: 'Discovery',
+      price: 100.0,
+      imgURL: 'https://picsum.photos/200/200',
+      quantidade: 1,
+    },
+    {
+      id: 3,
+      name: 'Ola mundo',
+      price: 200.0,
+      imgURL: 'https://picsum.photos/200/200',
+      quantidade: 1,
+    },
+  ]
+
   state = {
+    valorMin: '',
+    valorMax: '',
+    procurarNome: '',
+    produtos: [...this.produtosArray],
     carrinho: [],
   };
+
+  onChangeInput = (event) => {
+    this.setState({ procurarNome: event.target.value })
+    this.filterProduto()
+  }
+
+  onChangeInputValorMin = (event) => {
+      this.setState({ valorMin: event.target.value })
+      this.filterProduto()
+
+  }
+
+  onChangeInputValorMax = (event) => {
+      this.setState({ valorMax: event.target.value })
+      this.filterProduto()
+  }
+
+  filterProduto =() => {
+    const minimo = +this.state.valorMin
+    const maximo = +this.state.valorMax
+    const procurar = this.state.procurarNome.toLowerCase()
+    
+    
+    const filtraPorNome = this.state.produtos.filter((produto) => {
+
+      if (produto.name.toLowerCase().includes(procurar)){
+        return true
+      } 
+
+      return produto
+      
+     
+    })
+    return filtraPorNome
+  }
 
   addToCart(obj) {
     const carrinhoCopia = [...this.state.carrinho];
@@ -64,7 +127,15 @@ class App extends React.Component {
   render() {
     return (
       <Container>
-        <Filter />
+        <Filter 
+          valorMin={this.state.valorMin}
+          valorMax={this.state.valorMax}
+          procurarNome={this.state.procurarNome}
+          onChangeInputValorMin={this.onChangeInputValorMin}
+          onChangeInputValorMax={this.onChangeInputValorMax}
+          onChangeInput={this.onChangeInput}
+          filterProduto={this.filterProduto}
+        />
 
         <Home
           executar={this.addToCart.bind(this)}
