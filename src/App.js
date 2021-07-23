@@ -58,7 +58,7 @@ class App extends React.Component {
           return obj;
         } else return produtoCarrinho;
       })
-      .filter((item) => item.quantidade > 1);
+    ;
     this.setState({ carrinho: newCart });
   };
 
