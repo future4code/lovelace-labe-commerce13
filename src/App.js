@@ -58,32 +58,36 @@ class App extends React.Component {
 
   onChangeInputValorMin = (event) => {
       this.setState({ valorMin: event.target.value })
-      this.filterProduto()
-
+      this.filterValueProduct()
   }
 
   onChangeInputValorMax = (event) => {
       this.setState({ valorMax: event.target.value })
-      this.filterProduto()
+      this.filterValueProduct()
   }
 
-  filterProduto =() => {
-    const minimo = +this.state.valorMin
-    const maximo = +this.state.valorMax
-    const procurar = this.state.procurarNome.toLowerCase()
-    
-    
-    const filtraPorNome = this.state.produtos.filter((produto) => {
-
-      if (produto.name.toLowerCase().includes(procurar)){
-        return true
-      } 
-
-      return produto
+  filterProduto = () => {
       
-     
-    })
-    return filtraPorNome
+    const procurar = this.state.procurarNome.toLowerCase()
+    const filtraPorNome = this.produtosArray.filter((produto) =>
+     produto.name.toLowerCase().includes(procurar))
+     this.setState({
+      produtos: procurar.length ? filtraPorNome : [...this.state.produtos]
+     })   
+  }
+
+  filterValueProduct = () => {
+      const precoMin = Number(this.state.valorMin)
+      // const precoMa = Number(this.state.valorMin)
+      const valorRetornar = this.produtosArray.filter((item) => {
+          if (this.state.valorMin === '') {
+            return item
+          }
+         return (item.price >= precoMin && item.price <= precoMin)
+      })
+      this.setState({
+        produtos:valorRetornar
+      })
   }
 
   addToCart(obj) {
@@ -125,6 +129,8 @@ class App extends React.Component {
   };
 
   render() {
+
+    // const varList = this.filterProduto()
     return (
       <Container>
         <Filter 
@@ -135,9 +141,13 @@ class App extends React.Component {
           onChangeInputValorMax={this.onChangeInputValorMax}
           onChangeInput={this.onChangeInput}
           filterProduto={this.filterProduto}
+  
         />
 
         <Home
+          valorMin={this.state.valorMin}
+          valorMax={this.state.valorMax}
+          procurarNome={this.state.procurarNome}
           executar={this.addToCart.bind(this)}
           executar2={this.addQuantidade.bind(this)}
           produtos={this.state.produtos}

@@ -7,17 +7,19 @@ class Filter extends React.Component{
                 <h3>Filtros</h3>
                 <div>
                     <label>Valor mínimo:</label>
-                    <input value={this.props.valorMin} onChange={this.props.onChangeInputValorMin} type="number"/> 
+                    <input value={this.props.valorMin} onChange= {this.props.onChangeInputValorMin} type="number"/> 
                 </div>
                 <div>
                     <label>Valor máximo:</label>
-                    <input value={this.props.valorMax} onChange={this.props.onChangeInputValorMax} type="number"/> 
+                    <input value={this.props.valorMax} onChange= {this.props.onChangeInputValorMax} type="number"/> 
                 </div>
                 <div>
                     <label>Busca por nome:</label>
-                    <input value={this.props.procurarNome} onChange= {
-                        this.props.onChangeInput
-                    } type="text"/> 
+                    <input 
+                        value={this.props.procurarNome}
+                        onChange= {
+                            this.props.onChangeInput
+                        } type="text"/> 
                 </div>
             </section>
         );
