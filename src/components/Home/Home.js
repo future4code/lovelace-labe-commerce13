@@ -30,7 +30,6 @@ class Home extends React.Component {
   };
 
   addCartObject = (id, name, price, quantidade) => {
-    console.log(quantidade);
     return {
       id,
       name,
@@ -60,18 +59,15 @@ class Home extends React.Component {
                       this.addCartObject(id, name, price, quantidade)
                     );
                     const carrinhoCopia = [...this.props.carrinho];
-                    const oi = carrinhoCopia.reduce((acc, item) => {
-                      console.log(acc);
-                      if (acc.toLowerCase() === item.name.toLowerCase()) {
-                        this.props.executar2(id);
-                        return item.name;
-                      } else {
-                        this.props.executar(
-                          this.addCartObject(id, name, price, quantidade)
-                        );
-                        return item.name;
-                      }
-                    }, '');
+                    const nomeInclui = !carrinhoCopia
+                      .map(({ name }) => name)
+                      .includes(name);
+
+                    if (nomeInclui) {
+                      this.props.executar(
+                        this.addCartObject(id, name, price, quantidade)
+                      );
+                    } else this.props.executar2(id);
                   }}
                   type="button"
                 >
