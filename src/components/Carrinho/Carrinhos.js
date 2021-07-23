@@ -2,11 +2,13 @@ import React from 'react';
 import Carrinho from './Carrinho';
 
 class Carrinhos extends React.Component {
-
     totalValue = () => {
-        let valueFinish = this.props.carrinho.reduce((acc, { price, quantidade }) => acc + price * quantidade , 0)
-        return valueFinish
-    }
+      let valueFinish = this.props.carrinho.reduce(
+        (acc, { price, quantidade }) => acc + price * quantidade,
+        0
+      );
+      return valueFinish;
+    };
 
     render() {
         return (

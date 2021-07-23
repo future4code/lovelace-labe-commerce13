@@ -23,7 +23,7 @@ class App extends React.Component {
     {
       id: 1,
       name: 'Voyager',
-      price: 150.0,
+      price: 50.0,
       imgURL: 'https://picsum.photos/200/200',
       quantidade: 1,
     },
@@ -41,7 +41,7 @@ class App extends React.Component {
       imgURL: 'https://picsum.photos/200/200',
       quantidade: 1,
     },
-  ]
+  ];
 
   state = {
     valorMin: '',
@@ -52,43 +52,46 @@ class App extends React.Component {
   };
 
   onChangeInput = (event) => {
-    this.setState({ procurarNome: event.target.value })
-    this.filterProduto()
-  }
+    this.setState({ procurarNome: event.target.value });
+  };
 
   onChangeInputValorMin = (event) => {
-      this.setState({ valorMin: event.target.value })
-      this.filterValueProduct()
-  }
+    this.setState({ valorMin: event.target.value });
+    this.filterValueProduct();
+  };
 
   onChangeInputValorMax = (event) => {
-      this.setState({ valorMax: event.target.value })
-      this.filterValueProduct()
-  }
+    this.setState({ valorMax: event.target.value });
+    this.filterValueProduct();
+  };
 
-  filterProduto = () => {
-      
-    const procurar = this.state.procurarNome.toLowerCase()
-    const filtraPorNome = this.produtosArray.filter((produto) =>
-     produto.name.toLowerCase().includes(procurar))
-     this.setState({
-      produtos: procurar.length ? filtraPorNome : [...this.state.produtos]
-     })   
-  }
+  filterProdutoNome = () => {
+    const procurar = this.state.procurarNome.toLowerCase().trim();
+    const filtraPorNome = this.state.produtos.filter((produto) =>
+      produto.name.toLowerCase().includes(procurar)
+    );
+
+    this.setState({
+      produtos: procurar.length ? filtraPorNome : this.produtosArray,
+    });
+  };
 
   filterValueProduct = () => {
-      const precoMin = Number(this.state.valorMin)
-      // const precoMa = Number(this.state.valorMin)
-      const valorRetornar = this.produtosArray.filter((item) => {
-          if (this.state.valorMin === '') {
-            return item
-          }
-         return (item.price >= precoMin && item.price <= precoMin)
-      })
-      this.setState({
-        produtos:valorRetornar
-      })
-  }
+    const precoMin = Number(this.state.valorMin);
+    const precoMax = Number(this.state.valorMax);
+    this.state.valorMin === '' &&
+      this.state.valorMax === '' &&
+      this.setState({ produtos: this.produtosArray });
+
+    const valorRetornar = this.produtosArray.filter((item) => {
+      if (this.state.valorMin.length && item.price >= precoMin) return item;
+      else if (this.state.valorMax.length && item.price <= precoMax)
+        return item;
+      else if (precoMin >= item.preco || item.preco <= precoMax) return item;
+    });
+
+    this.setState({ produtos: valorRetornar });
+  };
 
   addToCart(obj) {
     const carrinhoCopia = [...this.state.carrinho];
@@ -129,25 +132,19 @@ class App extends React.Component {
   };
 
   render() {
-
-    // const varList = this.filterProduto()
     return (
       <Container>
-        <Filter 
+        <Filter
           valorMin={this.state.valorMin}
           valorMax={this.state.valorMax}
           procurarNome={this.state.procurarNome}
           onChangeInputValorMin={this.onChangeInputValorMin}
           onChangeInputValorMax={this.onChangeInputValorMax}
           onChangeInput={this.onChangeInput}
-          filterProduto={this.filterProduto}
-  
+          filterProduto={this.filterProdutoNome}
         />
 
         <Home
-          valorMin={this.state.valorMin}
-          valorMax={this.state.valorMax}
-          procurarNome={this.state.procurarNome}
           executar={this.addToCart.bind(this)}
           executar2={this.addQuantidade.bind(this)}
           produtos={this.state.produtos}
