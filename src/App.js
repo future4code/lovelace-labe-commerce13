@@ -57,40 +57,10 @@ class App extends React.Component {
 
   onChangeInputValorMin = (event) => {
     this.setState({ valorMin: event.target.value });
-    this.filterValueProduct();
   };
 
   onChangeInputValorMax = (event) => {
     this.setState({ valorMax: event.target.value });
-    this.filterValueProduct();
-  };
-
-  filterProdutoNome = () => {
-    const procurar = this.state.procurarNome.toLowerCase().trim();
-    const filtraPorNome = this.state.produtos.filter((produto) =>
-      produto.name.toLowerCase().includes(procurar)
-    );
-
-    this.setState({
-      produtos: procurar.length ? filtraPorNome : this.produtosArray,
-    });
-  };
-
-  filterValueProduct = () => {
-    const precoMin = Number(this.state.valorMin);
-    const precoMax = Number(this.state.valorMax);
-    this.state.valorMin === '' &&
-      this.state.valorMax === '' &&
-      this.setState({ produtos: this.produtosArray });
-
-    const valorRetornar = this.produtosArray.filter((item) => {
-      if (this.state.valorMin.length && item.price >= precoMin) return item;
-      else if (this.state.valorMax.length && item.price <= precoMax)
-        return item;
-      else if (precoMin >= item.preco || item.preco <= precoMax) return item;
-    });
-
-    this.setState({ produtos: valorRetornar });
   };
 
   addToCart(obj) {
@@ -141,7 +111,6 @@ class App extends React.Component {
           onChangeInputValorMin={this.onChangeInputValorMin}
           onChangeInputValorMax={this.onChangeInputValorMax}
           onChangeInput={this.onChangeInput}
-          filterProduto={this.filterProdutoNome}
         />
 
         <Home
@@ -149,6 +118,9 @@ class App extends React.Component {
           executar2={this.addQuantidade.bind(this)}
           produtos={this.state.produtos}
           carrinho={this.state.carrinho}
+          valorMin={this.state.valorMin}
+          valorMax={this.state.valorMax}
+          procurarNome={this.state.procurarNome}
         />
 
         {this.state.carrinho.length !== 0 && (
