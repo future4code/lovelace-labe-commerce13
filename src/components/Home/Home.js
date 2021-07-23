@@ -3,31 +3,7 @@ import Nav from './Nav/Nav';
 // import Products from './Products/Products';
 
 class Home extends React.Component {
-  state = {
-    produtos: [
-      {
-        id: 1,
-        name: 'Voyager',
-        price: 150.0,
-        imgURL: 'https://picsum.photos/200/200',
-        quantidade: 1,
-      },
-      {
-        id: 2,
-        name: 'Discovery',
-        price: 100.0,
-        imgURL: 'https://picsum.photos/200/200',
-        quantidade: 1,
-      },
-      {
-        id: 3,
-        name: 'Ola mundo',
-        price: 200.0,
-        imgURL: 'https://picsum.photos/200/200',
-        quantidade: 1,
-      },
-    ],
-  };
+  
 
   addCartObject = (id, name, price, quantidade) => {
     return {
@@ -41,9 +17,9 @@ class Home extends React.Component {
   render() {
     return (
       <section>
-        <Nav produtos={this.state.produtos} />
+        <Nav produtos={this.props.produtos} />
         <main>
-          {this.state.produtos.map(
+          {this.props.produtos.map(
             ({ id, imgURL, name, price, quantidade }, index) => (
               <div key={index}>
                 <figure>
