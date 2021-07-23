@@ -19,7 +19,6 @@ const Container = styled.div`
 `;
 
 class App extends React.Component {
-  
   state = {
     carrinho: [],
   };
@@ -27,43 +26,42 @@ class App extends React.Component {
   addToCart(obj) {
     const carrinhoCopia = [...this.state.carrinho];
     this.setState({
-      carrinho: [...carrinhoCopia, obj]
-    });    
+      carrinho: [...carrinhoCopia, obj],
+    });
   }
 
   removerItem = (itemID) => {
-    const newCart = this.state.carrinho.map(( produto ) => {
-        const { id, quantidade } = produto
-        if (itemID === id){
-            return {
-              ...produto,
-              quantidade: quantidade -1
-            }
+    const newCart = this.state.carrinho
+      .map((produto) => {
+        const { id, quantidade } = produto;
+        if (itemID === id) {
+          return {
+            ...produto,
+            quantidade: quantidade - 1,
+          };
         }
-        return produto
-    }).filter(({ quantidade }) => quantidade >= 1)
-    this.setState({ carrinho: newCart })
-  }
+        return produto;
+      })
+      .filter(({ quantidade }) => quantidade >= 1);
+    this.setState({ carrinho: newCart });
+  };
 
   addQuantidade = (idObj) => {
     const carrinhoCopia = [...this.state.carrinho];
-    const newCart = carrinhoCopia
-      .map((produtoCarrinho) => {
-        const { id } = produtoCarrinho;
-        if (id === idObj) {
-          const obj = {
-            ...produtoCarrinho,
-            quantidade: produtoCarrinho.quantidade + 1,
-          };
-          return obj;
-        } else return produtoCarrinho;
-      })
-    ;
+    const newCart = carrinhoCopia.map((produtoCarrinho) => {
+      const { id } = produtoCarrinho;
+      if (id === idObj) {
+        const obj = {
+          ...produtoCarrinho,
+          quantidade: produtoCarrinho.quantidade + 1,
+        };
+        return obj;
+      } else return produtoCarrinho;
+    });
     this.setState({ carrinho: newCart });
   };
 
   render() {
-    console.log(this.state.carrinho);
     return (
       <Container>
         <Filter />
@@ -75,10 +73,12 @@ class App extends React.Component {
           carrinho={this.state.carrinho}
         />
 
-        {this.state.carrinho.length !== 0 && <Carrinhos 
-          carrinho = {this.state.carrinho}
-          executar = {this.removerItem.bind(this)}
-        />}
+        {this.state.carrinho.length !== 0 && (
+          <Carrinhos
+            carrinho={this.state.carrinho}
+            executar={this.removerItem.bind(this)}
+          />
+        )}
 
         <GlobalStyle />
       </Container>
