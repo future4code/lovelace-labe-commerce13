@@ -1,6 +1,5 @@
 import React from 'react';
 import Nav from './Nav/Nav';
-// import Products from './Products/Products';
 
 class Home extends React.Component {
   addCartObject = (id, name, price, quantidade) => {
@@ -35,43 +34,59 @@ class Home extends React.Component {
         );
       }
 
-      return finalProducts.map(
-        ({ id, imgURL, name, price, quantidade }, index) => (
-          <div key={index}>
-            <figure>
-              <img src={imgURL} alt={name} />
-            </figure>
-            <div>
-              <p>{name}</p>
-              <p>R${price}</p>
-            </div>
-            <button
-              onClick={() => {
+      if (this.props.ordena) {
+        const numerosOrdenados = finalProducts.map(({ price }) => price).sort();
+        finalProducts = finalProducts.reduce((acc, obj, index) => {
+          const produtoOrdenado = {
+            ...obj,
+            price: numerosOrdenados[index],
+          };
+          return [...acc, produtoOrdenado];
+        }, []);
+
+        this.props.ordena.toUpperCase() === 'DECRESCENTE' &&
+          finalProducts.reverse();
+      }
+
+      return finalProducts.map(({ id, imgURL, name, price, quantidade }) => (
+        <div key={id}>
+          <figure>
+            <img src={imgURL} alt={name} />
+          </figure>
+          <div>
+            <p>{name}</p>
+            <p>R${price}</p>
+          </div>
+          <button
+            onClick={() => {
+              this.props.executar(
+                this.addCartObject(id, name, price, quantidade)
+              );
+              const carrinhoCopia = [...this.props.carrinho];
+              const nomeInclui = !carrinhoCopia
+                .map(({ name }) => name)
+                .includes(name);
+
+              if (nomeInclui) {
                 this.props.executar(
                   this.addCartObject(id, name, price, quantidade)
                 );
-                const carrinhoCopia = [...this.props.carrinho];
-                const nomeInclui = !carrinhoCopia
-                  .map(({ name }) => name)
-                  .includes(name);
-
-                if (nomeInclui) {
-                  this.props.executar(
-                    this.addCartObject(id, name, price, quantidade)
-                  );
-                } else this.props.executar2(id);
-              }}
-              type="button"
-            >
-              Adcionar ao carrinho
-            </button>
-          </div>
-        )
-      );
+              } else this.props.executar2(id);
+            }}
+            type="button"
+          >
+            Adcionar ao carrinho
+          </button>
+        </div>
+      ));
     };
+
     return (
       <section>
-        <Nav produtos={this.props.produtos} />
+        <Nav
+          produtos={listProducts}
+          onOrdenaOption={(event) => this.props.onOrdenaOption(event)}
+        />
         <main>{listProducts()}</main>
       </section>
     );
