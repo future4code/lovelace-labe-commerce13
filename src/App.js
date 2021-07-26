@@ -113,7 +113,7 @@ class App extends React.Component {
           procurarNome={this.state.procurarNome}
           onChangeInputValorMin={this.onChangeInputValorMin}
           onChangeInputValorMax={this.onChangeInputValorMax}
-          onChangeInput={this.onChangeInput}
+          onChangeInput={this.onChangeInput}  
         />
 
         <Home
