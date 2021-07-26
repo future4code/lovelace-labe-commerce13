@@ -11,6 +11,7 @@ class Filter extends React.Component {
             value={this.props.valorMin}
             onChange={this.props.onChangeInputValorMin}
             type="number"
+            min="0"
           />
         </div>
         <div>
@@ -19,6 +20,7 @@ class Filter extends React.Component {
             value={this.props.valorMax}
             onChange={this.props.onChangeInputValorMax}
             type="number"
+            min="0"
           />
         </div>
         <div>
