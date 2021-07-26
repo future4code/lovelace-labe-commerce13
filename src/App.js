@@ -47,6 +47,7 @@ class App extends React.Component {
     valorMin: '',
     valorMax: '',
     procurarNome: '',
+    ordena: '',
     produtos: [...this.produtosArray],
     carrinho: [],
   };
@@ -62,6 +63,8 @@ class App extends React.Component {
   onChangeInputValorMax = (event) => {
     this.setState({ valorMax: event.target.value });
   };
+
+  onChangeInputOrdena = ({ target }) => this.setState({ ordena: target.value });
 
   addToCart(obj) {
     const carrinhoCopia = [...this.state.carrinho];
@@ -121,6 +124,8 @@ class App extends React.Component {
           valorMin={this.state.valorMin}
           valorMax={this.state.valorMax}
           procurarNome={this.state.procurarNome}
+          onOrdenaOption={this.onChangeInputOrdena}
+          ordena={this.state.ordena}
         />
 
         {this.state.carrinho.length !== 0 && (
